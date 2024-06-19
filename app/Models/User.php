@@ -42,4 +42,20 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    
+    /**
+     * このユーザーが所有するゲーム。（ Gameモデルとの関係を定義）
+     */
+    public function games()
+    {
+        return $this->hasMany(Game::class);
+    }
+    
+    /**
+     * このユーザーに関係するモデルの件数をロードする。
+     */
+    public function loadRelationshipCounts()
+    {
+        $this->loadCount('games');
+    }
 }

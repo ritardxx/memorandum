@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\UsersController; // 追記
 
+use  App\Http\Controllers\GamesController; //追記
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,16 +18,13 @@ use App\Http\Controllers\UsersController; // 追記
 |
 */
 
-Route::get('/', function () {
-    return view('dashboard');
-});
+Route::get('/', [GamesController::class, 'index']);
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [GamesController::class, 'index'])->middleware(['auth'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::resource('users', UsersController::class, ['only' => ['index', 'show']]);
+    Route::resource('games', GamesController::class, ['only' => ['store', 'destroy']]);
 });
 
 require __DIR__.'/auth.php';
