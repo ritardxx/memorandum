@@ -51,6 +51,11 @@ class User extends Authenticatable
         return $this->hasMany(Game::class);
     }
     
+    public function notes()
+    {
+        return $this->hasMany(Note::class);
+    }
+    
     /**
      * このユーザーに関係するモデルの件数をロードする。
      */

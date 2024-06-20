@@ -1,23 +1,25 @@
 <div class="mt-4">
     @if (isset($games))
-        <ul class="list-none">
+        <ul class="list-none flex">
             @foreach ($games as $game)
-                <li class="flex items-start gap-x-2 mb-4">
-                        <div>
+                <li class="card w-96 bg-base-100 shadow-xl mr-2 ml-2">
+                    <div class="card-body items-center text-center ">
                             {{-- game title --}}
-                            <p class="mb-0">{!! nl2br(e($game->title)) !!}</p>
-                        </div>
+                            <a class="card-title" href="{{ route('games.show', $game->id) }}">{!! nl2br(e($game->title)) !!}</a>
                         <div>
                             @if (Auth::id() == $game->user_id)
                                 {{-- 投稿削除ボタンのフォーム --}}
                                 <form method="POST" action="{{ route('games.destroy', $game->id) }}">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-error btn-sm normal-case" 
-                                        onclick="return confirm('Delete id = {{ $game->id }} ?')">Delete</button>
+                                        <div class="card-actions mt-4">
+                                            <button type="submit" class="btn btn-error btn-sm" 
+                                                onclick="return confirm('Delete id = {{ $game->id }} ?')">Delete</button>
+                                        </div>
                                 </form>
                             @endif
                         </div>
+                    </div>
                 </li>
             @endforeach
         </ul>

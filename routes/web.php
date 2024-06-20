@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController; // 追記
 
 use  App\Http\Controllers\GamesController; //追記
+use  App\Http\Controllers\NotesController; //追記
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,10 @@ Route::get('/dashboard', [GamesController::class, 'index'])->middleware(['auth']
 Route::middleware('auth')->group(function () {
     Route::resource('users', UsersController::class, ['only' => ['index', 'show']]);
     Route::resource('games', GamesController::class, ['only' => ['store', 'destroy']]);
+    Route::resource('notes', NotesController::class, ['only' => ['store', 'destroy']]);
 });
+
+// ゲームの詳細ページを表示するルート
+Route::get('/games/{game}', [NotesController::class, 'show'])->name('games.show');
 
 require __DIR__.'/auth.php';

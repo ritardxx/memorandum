@@ -3,12 +3,13 @@
 @section('content')
     @if (Auth::check())
         <div class="sm:grid sm:grid-cols-3 sm:gap-10">
-            <div class="sm:col-span-2">
+            <div class="">
                 {{-- 投稿フォーム --}}
                 @include('games.form')
-                {{-- 投稿一覧 --}}
-                @include('games.games')
+                
             </div>
+            {{-- 投稿一覧 --}}
+                @include('games.games')
         </div>
     @else
         <div class="prose hero bg-base-200 mx-auto max-w-full rounded">
